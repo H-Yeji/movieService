@@ -36,9 +36,8 @@ public class MovieController {
     public ResponseEntity<?> registMovie(MovieRegistDto dto) {
 
         try {
-            log.info("controller전");
             Movie movie = movieService.registMovie(dto);
-            log.info("controller후");
+
             CommonResDto commonResDto = new CommonResDto(HttpStatus.OK, "등록이 완료되었습니다.", movie.getId());
             return new ResponseEntity<>(commonResDto, HttpStatus.OK);
         } catch (EntityNotFoundException e){

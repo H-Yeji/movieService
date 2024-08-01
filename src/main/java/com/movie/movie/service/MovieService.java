@@ -51,13 +51,13 @@ public class MovieService {
             TheaterInfo theaterInfo = theaterInfoRepository.findById(theaterId).orElseThrow(
                     () -> new EntityNotFoundException("해당id의 상영관이 존재하지 않습니다.")
             );
+
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime dateTime = LocalDateTime.parse(dto.getScreeningDate(), dateTimeFormatter);
 
             movie = movieRepository.save(dto.toEntity(theaterInfo, dateTime));
 
             byte[] bytes = image.getBytes();
-
             Path path = Paths.get("C:/Users/Playtdata/Desktop/tmp/"
                     , movie.getId()+ "_" + image.getOriginalFilename());
             Files.write(path, bytes, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
@@ -66,7 +66,7 @@ public class MovieService {
 
             // redis 이용
             if (dto.getOption().equals(Option.Event)) {
-                stockInventoryService.increaseStock(movie.getId(), dto.getCnt());
+                stockInventoryService.initializeSeats(theaterId, 2, 5); //좌석 세팅 (A1,2,3,4,5 / B1,2,3,4,5)
             }
 
         } catch (IOException e) {

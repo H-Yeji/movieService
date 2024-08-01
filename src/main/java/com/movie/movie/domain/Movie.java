@@ -21,7 +21,10 @@ public class Movie {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String title; // 제목이 unique
+    private String movieNum; // 영화 고유의 번호
+
+    @Column(nullable = false)
+    private String title;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -51,4 +54,5 @@ public class Movie {
     public void updateImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
+
 }

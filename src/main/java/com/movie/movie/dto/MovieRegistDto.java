@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class MovieRegistDto {
 
+    private String movieNum;
     private String title;
     private Genre genre;
     private String screeningDate;
@@ -26,10 +27,10 @@ public class MovieRegistDto {
     private Integer price; // 기본 14000원, 이벤트 영화 9000원
     private MultipartFile poster; // 영화 포스터 사진
     private Long theaterId; // 상영관 번호 (1관, 2관, 3관)
-    private Long cnt; // 예약 인원수
 
     public Movie toEntity(TheaterInfo theaterInfo, LocalDateTime dateTime) {
         Movie movie = Movie.builder()
+                .movieNum(this.movieNum)
                 .title(this.title)
                 .genre(this.genre)
                 .screeningDate(dateTime)

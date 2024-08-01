@@ -28,4 +28,8 @@ public class TheaterInfo {
      * 2      50
      * 3      10
      */
+
+    public void updateRemainSeat(int cnt) {
+        this.remainSeat = this.remainSeat - cnt;
+    }
 }
