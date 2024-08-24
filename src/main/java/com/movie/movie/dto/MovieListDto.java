@@ -1,7 +1,5 @@
 package com.movie.movie.dto;
 
-import com.movie.member.domain.Member;
-import com.movie.movie.domain.Movie;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,9 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MovieListDto {
+public class MovieListDto { // 상영중인 전체 영화 리스트
 
-    private int no;
-    private String memberEmail;
-    private Movie movie;
+    private Long id;
+    private String title;
+    private String runningDateTime; // 상영 날짜 및 시간
+    private Long remainSeat; // 남은 좌석수
 }

@@ -19,17 +19,14 @@ public class TheaterInfo {
     private Long id; // id이자 상영관 번호
 
     @Column(nullable = false)
-    private int remainSeat; // 남은 좌석수
+    private Long seat; // 남은 좌석수
 
     /**
      * 데이터
      * id(관) 좌석수
-     * 1      50
-     * 2      50
-     * 3      10
+     * 1      100
+     * 2      100
+     * 3      50
      */
 
-    public void updateRemainSeat(int cnt) {
-        this.remainSeat = this.remainSeat - cnt;
-    }
 }

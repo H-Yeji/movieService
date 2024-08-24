@@ -2,6 +2,7 @@ package com.movie.common.auth;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component // 외부 라이브러리
+@Slf4j
 public class JwtAuthFilter extends GenericFilter {
 
     @Value("${jwt.secretKey}")
@@ -54,6 +56,7 @@ public class JwtAuthFilter extends GenericFilter {
             }
             filterChain.doFilter(servletRequest, servletResponse);
         } catch (Exception e) {
+            log.error("JWT Authentication Error: {}", e.getMessage());
             HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
             httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
             httpServletResponse.setContentType("application/json");

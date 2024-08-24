@@ -3,8 +3,8 @@ package com.movie.movie.controller;
 import com.movie.common.dto.CommonErrorDto;
 import com.movie.common.dto.CommonResDto;
 import com.movie.movie.domain.BookedMovie;
-import com.movie.movie.dto.MovieBookDto;
-import com.movie.movie.dto.MovieListDto;
+import com.movie.movie.dto.BookingMovieDto;
+import com.movie.movie.dto.BookedMovieListDto;
 import com.movie.movie.dto.MyMovieListDto;
 import com.movie.movie.service.BookingMovieService;
 import org.slf4j.Logger;
@@ -35,12 +35,12 @@ public class BookingMovieController {
      *  영화 예매
      */
     @PostMapping("/book")
-    public ResponseEntity<?> bookingMovie(@RequestBody MovieBookDto dto) {
+    public ResponseEntity<?> bookingMovie(@RequestBody BookingMovieDto dto) {
 
         try {
             BookedMovie bookedMovie = bookingMovieService.bookingMovie(dto);
 
-            CommonResDto commonResDto = new CommonResDto(HttpStatus.CREATED, "예매 성공", bookedMovie.getMovie());
+            CommonResDto commonResDto = new CommonResDto(HttpStatus.CREATED, "예매 성공", bookedMovie.getRunningMovie());
             return new ResponseEntity<>(commonResDto, HttpStatus.CREATED);
         } catch (EntityNotFoundException | IllegalArgumentException e) {
             CommonErrorDto commonErrorDto = new CommonErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage());
@@ -62,7 +62,7 @@ public class BookingMovieController {
      */
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/listAll")
-    public Page<MovieListDto> movieList(Pageable pageable) {
+    public Page<BookedMovieListDto> movieList(Pageable pageable) {
 
         return bookingMovieService.movieList(pageable);
     }

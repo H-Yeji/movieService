@@ -1,7 +1,7 @@
 package com.movie.movie.domain;
 
 import com.movie.member.domain.Member;
-import com.movie.movie.dto.MovieListDto;
+import com.movie.movie.dto.BookedMovieListDto;
 import com.movie.movie.dto.MyMovieListDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,24 +25,24 @@ public class BookedMovie {
     private Member member;
 
     @ManyToOne
-    @JoinColumn(name = "movie_id")
-    private Movie movie;
+    @JoinColumn(name = "running_movie_id")
+    private RunningMovie runningMovie;
 
     public MyMovieListDto listFromEntity(int no) {
         MyMovieListDto myMovieListDto = MyMovieListDto.builder()
                 .no(no)
-                .title(this.getMovie().getTitle())
-                .date(String.valueOf(this.getMovie().getScreeningDate()))
+                .title(this.getRunningMovie().getMovie().getTitle())
+                .date(String.valueOf(this.getRunningMovie().getScreeningDate()))
                 .build();
         return myMovieListDto;
     }
 
-    public MovieListDto listAllFromEntity(int no) {
-        MovieListDto myMovieListDto = MovieListDto.builder()
+    public BookedMovieListDto listAllFromEntity(int no) {
+        BookedMovieListDto myBookedMovieListDto = BookedMovieListDto.builder()
                 .no(no)
                 .memberEmail(this.member.getEmail())
-                .movie(this.movie)
+                .runningMovie(this.runningMovie)
                 .build();
-        return myMovieListDto;
+        return myBookedMovieListDto;
     }
 }
