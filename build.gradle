@@ -44,6 +44,10 @@ dependencies {
 
 	// 동시성 제어를 위한 이벤트 기반 rabbitmq 의존성 추가
 	implementation 'org.springframework.boot:spring-boot-starter-amqp'
+
+	//	SMTP 의존성 추가
+	implementation 'org.springframework.boot:spring-boot-starter-mail:2.6.3'
+	implementation 'javax.mail:javax.mail-api:1.6.2'
 }
 
 tasks.named('test') {
